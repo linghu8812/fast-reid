@@ -122,7 +122,10 @@ class EmbeddingHead(nn.Module):
         """
         pool_feat = self.pool_layer(features)
         neck_feat = self.bottleneck(pool_feat)
-        neck_feat = neck_feat[..., 0, 0]
+        if neck_feat.ndim == 3:
+            neck_feat = neck_feat[..., 0]
+        else:
+            neck_feat = neck_feat[..., 0, 0]
 
         # Evaluation
         # fmt: off

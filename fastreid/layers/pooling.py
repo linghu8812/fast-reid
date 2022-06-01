@@ -70,7 +70,10 @@ class GeneralizedMeanPooling(nn.Module):
 
     def forward(self, x):
         x = x.clamp(min=self.eps).pow(self.p)
-        return F.adaptive_avg_pool2d(x, self.output_size).pow(1. / self.p)
+        if x.ndim == 3:
+            return F.adaptive_avg_pool1d(x, 1).pow(1. / self.p)
+        else:
+            return F.adaptive_avg_pool2d(x, self.output_size).pow(1. / self.p)
 
     def __repr__(self):
         return self.__class__.__name__ + '(' \

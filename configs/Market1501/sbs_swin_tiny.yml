@@ -1,0 +1,32 @@
+_BASE_: ../Base-SBS.yml
+
+MODEL:
+  META_ARCHITECTURE: MoCo
+
+  BACKBONE:
+    NAME: build_swin_backbone
+    NORM: BN
+    DEPTH: swin_tiny_patch4_window7_224
+    FEAT_DIM: 768
+    PRETRAIN: True
+
+  HEADS:
+    NORM: BN1d
+
+  LOSSES:
+    NAME: ("CrossEntropyLoss", "TripletLoss", "Cosface",)
+    COSFACE:
+      MARGIN: 0.25
+      GAMMA: 32
+      SCALE: 1.
+
+DATASETS:
+  NAMES: ("Market1501",)
+  TESTS: ("Market1501",)
+
+INPUT:
+  SIZE_TRAIN: [ 224, 224 ]
+  SIZE_TEST: [ 224, 224 ]
+
+
+OUTPUT_DIR: logs/market1501/sbs_swin_tiny_cos_moco
