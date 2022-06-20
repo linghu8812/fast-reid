@@ -17,3 +17,4 @@ from .mobilenetv3 import build_mobilenetv3_backbone
 from .repvgg import build_repvgg_backbone
 from .vision_transformer import build_vit_backbone
 from .swin_transformer import build_swin_backbone
+from .convnext import build_convnext_backbone
